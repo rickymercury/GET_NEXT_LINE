@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/rickymercury/Documents/Get-Next-Line",
-      "program": "/home/rickymercury/Documents/Get-Next-Line/build/Debug/outDebug",
+      "cwd": "/home/rickymercury/Documents/Common_Repos/Get-Next-Line",
+      "program": "/home/rickymercury/Documents/Common_Repos/Get-Next-Line/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
