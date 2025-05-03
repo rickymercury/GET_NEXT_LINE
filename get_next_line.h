@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:49:39 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/03 19:07:03 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/03 19:35:10 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 42
 # endif
 
 # include <fcntl.h>

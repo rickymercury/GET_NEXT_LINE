@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 22:36:18 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/03 16:41:37 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/03 19:35:48 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ char	*get_strjoin(char *s1, char const *s2)
 
 	if (!s1)
 	{
-		s1 = malloc(1 * sizeof(char));
-		*s1 = '\0';
+		s1 = malloc(1);
+		if (!s1)
+			return (NULL);
+		s1[0] = '\0';
 	}
 	joined = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!joined)
@@ -41,11 +43,7 @@ char	*get_strjoin(char *s1, char const *s2)
 		joined[s1_idx] = s1[s1_idx];
 	s2_idx = 0;
 	while (s2[s2_idx] != '\0')
-	{
-		joined[s1_idx] = s2[s2_idx];
-		s1_idx++;
-		s2_idx++;
-	}
+		joined[s1_idx++] = s2[s2_idx++];
 	joined[s1_idx] = '\0';
 	free(s1);
 	return (joined);
@@ -55,9 +53,9 @@ char	*ft_strchr(const char *s, int c)
 {
 	int	idx;
 
-	idx = 0;
 	if (!s)
 		return (NULL);
+	idx = 0;
 	while (s[idx] != '\0')
 	{
 		if (s[idx] == c)
@@ -107,7 +105,7 @@ char	*get_update(char *getline)
 		line_idx++;
 	if (!getline[line_idx])
 		return (free(getline), NULL);
-	buffer = malloc(sizeof(char) * (ft_strlen(getline) - line_idx));
+	buffer = malloc(sizeof(char) * (ft_strlen(getline) - line_idx + 1));
 	if (!buffer)
 		return (NULL);
 	line_idx++;
