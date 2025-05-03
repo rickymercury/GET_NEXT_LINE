@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 22:37:33 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/02 22:38:15 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/03 16:56:49 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ char	*extract_line(char *getline);
 char	*get_update(char *getline);
 char	*ft_strchr(const char *s, int c);
 char	*get_strjoin(char *s1, char const *s2);
-char	*get_read(char *getline, int fd);
 
 #endif

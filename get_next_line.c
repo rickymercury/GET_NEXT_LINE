@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:46:17 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/02 22:59:54 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/03 18:37:58 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,93 +14,29 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*getline;
-	char		*returnline;
+	static char	*stash;
+	char		*buf;
+	char		*line;
+	int			rd;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	getline = get_read(getline, fd);
-	if (!getline)
-		return (free(getline), NULL);
-	returnline = extract_line(getline);
-	getline = get_update(getline);
-	return (returnline);
-}
-
-char	*get_read(char *getline, int fd)
-{
-	char	*temp;
-	int		check;
-
-	temp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!temp)
-		return (free(getline), NULL);
-	check = 1;
-	while (!ft_strchr(getline, '\n') && check != 0)
+	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
+		return (free(stash), NULL);
+	rd = 1;
+	while (!ft_strchr(stash, '\n') && rd != 0)
 	{
-		check = read(fd, temp, BUFFER_SIZE);
-		if (check == -1)
-		{
-			free(temp);
-			free(getline);
-			return (NULL);
-		}
-		temp[check] = '\0';
-		getline = get_strjoin(getline, temp);
+		rd = read(fd, buf, BUFFER_SIZE);
+		if (rd == -1)
+			return (free(buf), free(stash), stash = NULL, NULL);
+		buf[rd] = '\0';
+		stash = get_strjoin(stash, buf);
 	}
-	free(temp);
-	return (getline);
-}
-
-char	*extract_line(char *getline)
-{
-	char	*returnline;
-	int		idx;
-
-	idx = 0;
-	if (!getline[idx])
+	free(buf);
+	if (!stash)
 		return (NULL);
-	while (getline[idx] != '\0' && getline[idx] != '\n')
-		idx++;
-	if (getline[idx] == '\n')
-		idx++;
-	returnline = malloc(sizeof(char) * (idx + 1));
-	if (!returnline)
-		return (NULL);
-	idx = 0;
-	while (getline[idx] != '\n' && getline[idx] != '\0')
-	{
-		returnline[idx] = getline[idx];
-		idx++;
-	}
-	if (getline[idx] == '\n')
-		returnline[idx++] = '\n';
-	returnline[idx] = '\0';
-	return (returnline);
-}
-
-char	*get_update(char *getline)
-{
-	char	*buffer;
-	int		line_idx;
-	int		buf_idx;
-
-	line_idx = 0;
-	while (getline[line_idx] != '\0' && getline[line_idx] != '\n')
-		line_idx++;
-	if (!getline[line_idx])
-		return (free(getline), NULL);
-	buffer = malloc(sizeof(char) * (ft_strlen(getline) - line_idx));
-	if (!buffer)
-		return (NULL);
-	line_idx++;
-	buf_idx = 0;
-	while (getline[line_idx + buf_idx] != '\0')
-	{
-		buffer[buf_idx] = getline[line_idx + buf_idx];
-		buf_idx++;
-	}
-	buffer[buf_idx] = '\0';
-	free(getline);
-	return (buffer);
+	line = extract_line(stash);
+	stash = get_update(stash);
+	return (line);
 }
