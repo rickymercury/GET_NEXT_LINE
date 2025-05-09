@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:16:04 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/09 12:25:37 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:08:47 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char *join_till_nl(char *s1, const char *s2)
 
     if (!s1)
     {
-        s1 = malloc(1);
+        s1 = malloc(sizeof(char) * 1);
         s1[0] = '\0';
     }
     line = malloc(sizeof(char) * (linelen(s1) + linelen(s2) + 1));
@@ -54,19 +54,17 @@ char *join_till_nl(char *s1, const char *s2)
     return (line);
 }
 
-char *ft_strrchr_nl(const char *s)
+char *find_last_nl(const char *line)
 {
     int idx;
 
-    if (!s)
-        return (NULL);
 	idx = 0;
-    while (s[idx])
+    while (line[idx])
         idx++;
     while (idx >= 0)
     {
-        if (s[idx] == '\n')
-            return ((char *)(s + idx));
+        if (line[idx] == '\n')
+            return ((char *)(line + idx));
         idx--;
     }
     return (NULL);
@@ -74,24 +72,25 @@ char *ft_strrchr_nl(const char *s)
 
 void *zero_buffer(char *buffer, size_t size)
 {
-    size_t idx;
+    size_t idx = 0;
 
-	idx = 0;
     while (idx < size)
         buffer[idx++] = 0;
     return (NULL);
 }
 
-void trim_buffer(char *buffer)
+void move_buffer(char *buffer)
 {
-    int r_idx;
+    int r_idx; 
 	int w_idx;
 	
 	r_idx = 0;
     while (buffer[r_idx] && buffer[r_idx] != '\n')
         r_idx++;
     if (buffer[r_idx] == '\n')
+	{
         r_idx++;
+	}
 	w_idx = 0;
     while (buffer[r_idx] && r_idx < BUFFER_SIZE)
         buffer[w_idx++] = buffer[r_idx++];
