@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:49:39 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/03 19:35:10 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/09 12:04:05 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,14 @@
 # endif
 
 # include <fcntl.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
 
-int		ft_strlen(const char *str);
 char	*get_next_line(int fd);
-char	*extract_line(char *getline);
-char	*get_update(char *getline);
-char	*ft_strchr(const char *s, int c);
-char	*get_strjoin(char *s1, char const *s2);
+char	*join_till_nl(char *s1, const char *s2);
+char	*ft_strrchr_nl(const char *s);
+void	trim_buffer(char *buffer);
+void	*zero_buffer(char *buffer, size_t size);
 
 #endif

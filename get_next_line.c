@@ -6,37 +6,36 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:46:17 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/03 19:29:14 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/09 12:09:13 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+char *get_next_line(int fd)
 {
-	static char	*stash;
-	char		*buf;
-	char		*line;
-	int			rd;
+    static char buffer[BUFFER_SIZE + 1];
+    char *line;
+    int rd;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buf)
-		return (free(stash), NULL);
-	rd = 1;
-	while (!ft_strchr(stash, '\n') && rd != 0)
-	{
-		rd = read(fd, buf, BUFFER_SIZE);
-		if (rd == -1)
-			return (free(buf), free(stash), stash = NULL, NULL);
-		buf[rd] = '\0';
-		stash = get_strjoin(stash, buf);
-	}
-	free(buf);
-	if (!stash)
-		return (NULL);
-	line = extract_line(stash);
-	stash = get_update(stash);
-	return (line);
+    if (fd < 0 || BUFFER_SIZE <= 0)
+        return (NULL);
+    line = join_till_nl(NULL, buffer);
+    if (!line)
+        return (NULL);
+    trim_buffer(buffer);
+    rd = 1;
+    while (!(ft_strrchr_nl(line)) && rd > 0)
+    {
+        rd = read(fd, buffer, BUFFER_SIZE);
+        if (rd <= 0)
+            break ;
+        line = join_till_nl(line, buffer);
+        if (!line)
+            return (NULL);
+        trim_buffer(buffer);
+    }
+    if (!line[0] || rd < 0)
+        return (free(line), NULL);
+    return (line);
 }
