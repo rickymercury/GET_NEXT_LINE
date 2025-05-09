@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 16:16:04 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/09 22:34:01 by rmedeiro         ###   ########.fr       */
+/*   Created: 2025/05/09 22:00:59 by rmedeiro          #+#    #+#             */
+/*   Updated: 2025/05/09 22:33:39 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static int	linelen(const char *str)
 {
