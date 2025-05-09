@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 21:55:27 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/09 22:34:23 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/09 23:23:00 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 
 char	*get_next_line(int fd);
 char	*join_till_nl(char *s1, const char *s2);
-char	*find_last_nl(const char *line);
-void	move_buffer(char *buffer);
-void	*zero_buffer(char *buffer, size_t size);
+int		movebuffer(char *buffer);
 
 #endif

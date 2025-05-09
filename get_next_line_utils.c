@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:16:04 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/09 22:34:01 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/09 23:18:44 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,46 +53,25 @@ char	*join_till_nl(char *s1, const char *s2)
 	return (line);
 }
 
-char	*find_last_nl(const char *line)
-{
-	int	idx;
-
-	idx = 0;
-	while (line[idx])
-		idx++;
-	while (idx >= 0)
-	{
-		if (line[idx] == '\n')
-			return ((char *)(line + idx));
-		idx--;
-	}
-	return (NULL);
-}
-
-void	*zero_buffer(char *buffer, size_t size)
-{
-	size_t	idx;
-
-	idx = 0;
-	while (idx < size)
-		buffer[idx++] = 0;
-	return (NULL);
-}
-
-void	move_buffer(char *buffer)
+int	movebuffer(char *buffer)
 {
 	int	r_idx;
 	int	w_idx;
+	int	found_nl;
 
 	r_idx = 0;
+	found_nl = 0;
 	while (buffer[r_idx] && buffer[r_idx] != '\n')
 		r_idx++;
 	if (buffer[r_idx] == '\n')
 	{
 		r_idx++;
+		found_nl = 1;
 	}
 	w_idx = 0;
 	while (buffer[r_idx] && r_idx < BUFFER_SIZE)
 		buffer[w_idx++] = buffer[r_idx++];
-	zero_buffer(&buffer[w_idx], BUFFER_SIZE - w_idx);
+	while (w_idx < BUFFER_SIZE)
+		buffer[w_idx++] = '\0';
+	return (found_nl);
 }
