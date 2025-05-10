@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:46:17 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/09 23:29:06 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/10 23:12:26 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,23 @@
 
 char	*get_next_line(int fd)
 {
-	char		*line;
 	static char	buffer[BUFFER_SIZE + 1];
+	char		*result_line;
+	size_t		idx;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	if (!buffer[0])
-		read(fd, buffer, BUFFER_SIZE);
-	line = NULL;
-	while (buffer[0])
+	idx = 0;
+	if (BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
 	{
-		line = join_till_nl(line, buffer);
-		if (!line)
-			return (NULL);
-		if (movebuffer(buffer) == 1)
-			break ;
-		if (read(fd, buffer, 0) < 0)
-			return (free(line), NULL);
-		read(fd, buffer, BUFFER_SIZE);
+		while (idx <= BUFFER_SIZE)
+			buffer[idx++] = '\0';
+		return (NULL);
 	}
-	return (line);
+	result_line = NULL;
+	while (buffer[0] || (read(fd, buffer, BUFFER_SIZE) > 0))
+	{
+		result_line = join_till_nl(result_line, buffer);
+		if (manage_buffer(buffer))
+			break ;
+	}
+	return (result_line);
 }

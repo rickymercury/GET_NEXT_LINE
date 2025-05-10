@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 21:55:27 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/10 23:26:55 by rmedeiro         ###   ########.fr       */
+/*   Created: 2025/05/10 22:11:14 by rmedeiro          #+#    #+#             */
+/*   Updated: 2025/05/10 22:11:55 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H 
+#include "get_next_line.h"
 
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-char	*get_next_line(int fd);
-char	*join_till_nl(char *line, const char *buffer);
-int		manage_buffer(char *buffer);
-
-#endif
+#include <stdio.h>
+int main(void)
+{
+	int fd = open("lol.txt", O_RDONLY);
+	char *line;
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		printf("%s", line);
+		free(line);
+	}
+	printf("%c", '\n');
+	close(fd);
+	return 0;
+}

@@ -6,72 +6,73 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:16:04 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/09 23:18:44 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/10 23:14:32 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int	linelen(const char *str)
+static size_t	ft_strlen(const char *str)
 {
-	int	idx;
+	size_t	idx;
 
 	if (!str)
 		return (0);
 	idx = 0;
-	while (str[idx] && str[idx] != '\n')
-		idx++;
-	if (str[idx] == '\n')
+	while (str[idx])
 		idx++;
 	return (idx);
 }
 
-char	*join_till_nl(char *s1, const char *s2)
+char	*join_till_nl(char *line, const char *buffer)
 {
-	char	*line;
-	int		s1_idx;
-	int		s2_idx;
+	char	*new_line;
+	int		line_idx;
+	int		buffer_idx;
 
-	if (!s1)
-	{
-		s1 = malloc(sizeof(char) * 1);
-		s1[0] = '\0';
-	}
-	line = malloc(sizeof(char) * (linelen(s1) + linelen(s2) + 1));
 	if (!line)
-		return (free(s1), NULL);
-	s1_idx = -1;
-	while (s1[++s1_idx])
-		line[s1_idx] = s1[s1_idx];
-	s2_idx = 0;
-	while (s2[s2_idx] && s2[s2_idx] != '\n')
-		line[s1_idx++] = s2[s2_idx++];
-	if (s2[s2_idx] == '\n')
-		line[s1_idx++] = '\n';
-	line[s1_idx] = '\0';
-	free(s1);
-	return (line);
+	{
+		line = malloc(1 * sizeof(char));
+		line[0] = '\0';
+	}
+	new_line = malloc(sizeof(char) * (ft_strlen(line) + ft_strlen(buffer) + 1));
+	if (!new_line)
+		return (NULL);
+	line_idx = -1;
+	while (line && line[++line_idx] != '\0')
+		new_line[line_idx] = line[line_idx];
+	buffer_idx = 0;
+	while (buffer[buffer_idx] != '\0' && buffer[buffer_idx] != '\n')
+		new_line[line_idx++] = buffer[buffer_idx++];
+	if (buffer[buffer_idx] == '\n')
+		new_line[line_idx++] = '\n';
+	new_line[line_idx] = '\0';
+	free(line);
+	return (new_line);
 }
 
-int	movebuffer(char *buffer)
+int	manage_buffer(char *buffer)
 {
-	int	r_idx;
-	int	w_idx;
-	int	found_nl;
+	size_t	idx1;
+	size_t	idx2;
+	int		found_nl;
 
-	r_idx = 0;
 	found_nl = 0;
-	while (buffer[r_idx] && buffer[r_idx] != '\n')
-		r_idx++;
-	if (buffer[r_idx] == '\n')
+	idx1 = 0;
+	while (buffer[idx1])
 	{
-		r_idx++;
-		found_nl = 1;
+		if (buffer[idx1] == '\n')
+		{
+			found_nl = 1;
+			idx1++;
+			break ;
+		}
+		idx1++;
 	}
-	w_idx = 0;
-	while (buffer[r_idx] && r_idx < BUFFER_SIZE)
-		buffer[w_idx++] = buffer[r_idx++];
-	while (w_idx < BUFFER_SIZE)
-		buffer[w_idx++] = '\0';
+	idx2 = 0;
+	while (buffer[idx1])
+		buffer[idx2++] = buffer[idx1++];
+	while (idx2 < idx1)
+		buffer[idx2++] = '\0';
 	return (found_nl);
 }
