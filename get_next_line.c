@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:46:17 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/15 23:36:15 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/16 00:01:46 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	result_line = NULL;
 	bytes_read = 1;
-	while (*buffer || (bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0)
+	while (*buffer || bytes_read > 0)
 	{
+		if (!*buffer)
+			bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
 			return (free(result_line), NULL);
 		result_line = join_till_nl(result_line, buffer);
