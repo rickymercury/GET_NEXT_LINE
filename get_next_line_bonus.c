@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 21:55:15 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/10 23:22:50 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/15 23:33:04 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[FOPEN_MAX][BUFFER_SIZE + 1];
+	static char	buffer[FOPEN_MAX][BUFFER_SIZE];
 	char		*result_line;
-	size_t		idx;
-
-	idx = 0;
-	if (BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
-	{
-		if (fd >= 0 && fd <= FOPEN_MAX)
-			while (buffer[fd][idx])
-				buffer[fd][idx++] = '\0';
+	int			bytes_read = 1;
+	
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd >= FOPEN_MAX)
 		return (NULL);
-	}
 	result_line = NULL;
-	while (buffer[fd][0] || read(fd, buffer[fd], BUFFER_SIZE))
+	while (*buffer[fd] || (bytes_read = read(fd, buffer[fd], BUFFER_SIZE)) > 0)
 	{
+		if (bytes_read == -1)
+			return (free(result_line), NULL);
 		result_line = join_till_nl(result_line, buffer[fd]);
+		if (!result_line)
+			return (NULL);
 		if (manage_buffer(buffer[fd]))
 			break ;
 	}
+	if (!result_line || result_line[0] == '\0')
+		return (free(result_line), NULL);
 	return (result_line);
 }

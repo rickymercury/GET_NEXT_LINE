@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 22:00:59 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/10 23:18:09 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/15 23:22:46 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	manage_buffer(char *buffer)
 	idx2 = 0;
 	while (buffer[idx1])
 		buffer[idx2++] = buffer[idx1++];
-	while (idx2 < idx1)
+	while (idx2 < BUFFER_SIZE)
 		buffer[idx2++] = '\0';
 	return (found_nl);
 }

@@ -6,13 +6,14 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 22:11:14 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/10 22:11:55 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/15 23:44:00 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 #include <stdio.h>
+
 int main(void)
 {
 	int fd = open("lol.txt", O_RDONLY);

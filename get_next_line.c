@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:46:17 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/10 23:12:26 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/15 23:36:15 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,25 @@
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	buffer[BUFFER_SIZE];
 	char		*result_line;
-	size_t		idx;
+	int			bytes_read;
 
-	idx = 0;
-	if (BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
-	{
-		while (idx <= BUFFER_SIZE)
-			buffer[idx++] = '\0';
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	}
 	result_line = NULL;
-	while (buffer[0] || (read(fd, buffer, BUFFER_SIZE) > 0))
+	bytes_read = 1;
+	while (*buffer || (bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
+		if (bytes_read == -1)
+			return (free(result_line), NULL);
 		result_line = join_till_nl(result_line, buffer);
+		if (!result_line)
+			return (NULL);
 		if (manage_buffer(buffer))
 			break ;
 	}
+	if (!result_line || result_line[0] == '\0')
+		return (free(result_line), NULL);
 	return (result_line);
 }
