@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 23:33:12 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/15 23:45:19 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/17 12:58:50 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int main(void)
 	int	fd[2];
 	char	*line[2];
 
-	fd[0] = open("lol.txt", O_RDONLY);
-	fd[1] = open("lol1.txt", O_RDONLY);
+	fd[0] = open("test.txt", O_RDONLY);
+	fd[1] = open("test1.txt", O_RDONLY);
 	while ((line[0] = get_next_line(fd[0])) != NULL
 	&& (line[1] = get_next_line(fd[1])) != NULL)
 	{

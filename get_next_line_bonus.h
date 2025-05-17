@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 21:55:27 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/10 23:26:55 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/17 12:56:29 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@
 #  define BUFFER_SIZE 42
 # endif
 
+#ifndef FDOPEN
+# define FDOPEN 1024
+#endif
+
 char	*get_next_line(int fd);
 char	*join_till_nl(char *line, const char *buffer);
-int		manage_buffer(char *buffer);
 
 #endif
