@@ -6,50 +6,50 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 22:00:59 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/17 12:48:47 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/17 14:13:48 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-static int	ft_strlen(const char *str)
+static size_t	ft_strlen(const char *str)
 {
-	int	len;
+	size_t	len;
 
 	len = 0;
 	if (!str)
 		return (0);
-	while (str[len] && str[len] != '\n' )
+	while (str[len] != '\0' && str[len] != '\n' )
 		len++;
 	if (str[len] == '\n')
 		len++;
 	return (len);
 }
 
-char	*join_till_nl(char *line, const char *buffer)
+char	*join_till_nl(char *line, char *buffer)
 {
 	char	*new_line;
-	int		line_idx;
-	int		buffer_idx;
+	size_t	line_idx;
+	size_t	buffer_idx;
 
-	if (!line)
-	{
-		line = malloc(1 * sizeof(char));
-		if (!line)
-			return (NULL);
-		line[0] = '\0';
-	}
+	if (!buffer)
+		return (NULL);
 	new_line = malloc(sizeof(char) * (ft_strlen(line) + ft_strlen(buffer) + 1));
 	if (!new_line)
 		return (NULL);
-	line_idx = -1;
-	while (line[++line_idx] != '\0')
+	line_idx = 0;
+	while (line && line[line_idx] != '\0')
+	{
 		new_line[line_idx] = line[line_idx];
+		line_idx++;
+	}
 	buffer_idx = 0;
-	while (buffer[buffer_idx] != '\0' && buffer[buffer_idx] != '\n')
-		new_line[line_idx++] = buffer[buffer_idx++];
-	if (buffer[buffer_idx] == '\n')
-		new_line[line_idx++] = '\n';
+	while (buffer[buffer_idx] != '\0')
+	{
+		new_line[line_idx++] = buffer[buffer_idx];
+		if (buffer[buffer_idx++] == '\n')
+			break ;
+	}
 	new_line[line_idx] = '\0';
 	free(line);
 	return (new_line);
