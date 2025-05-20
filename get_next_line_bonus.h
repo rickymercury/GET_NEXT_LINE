@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 21:55:27 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/17 14:49:55 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:56:43 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
-# endif
-
-# ifndef FDOPEN
-#  define FDOPEN 1024
 # endif
 
 char	*get_next_line(int fd);

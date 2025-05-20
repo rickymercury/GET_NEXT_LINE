@@ -6,7 +6,7 @@
 /*   By: rmedeiro <rmedeiro@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:46:17 by rmedeiro          #+#    #+#             */
-/*   Updated: 2025/05/17 14:42:41 by rmedeiro         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:10:03 by rmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,3 +40,19 @@ char	*get_next_line(int fd)
 	}
 	return (result_line);
 }
+
+/* #include <stdio.h>
+
+int main(void)
+{
+	int fd = open("test1.txt", O_RDONLY);
+	char *line;
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		printf("%s", line);
+		free(line);
+	}
+	printf("%c", '\n');
+	close(fd);
+	return 0;
+} */
